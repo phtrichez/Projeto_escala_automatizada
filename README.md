@@ -4,7 +4,7 @@ Sistema de geração automática de escala com:
 
 ## ✅ Features
 
-- Distribuição equilibrada de carga
+- Distribuição equilibrada entre GVC
 - Balanceamento por tipo (NC, CM, CV)
 - Restrições por dia:
   - Não pode trabalhar (R)
