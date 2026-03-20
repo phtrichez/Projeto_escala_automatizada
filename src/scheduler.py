@@ -25,13 +25,17 @@ class Scheduler:
             if col != 'NOME COMPLETO'
         ]
 
+        self.ordem_original = list(self.pessoas.keys())
+
     def get_restricao(self, nome, day):
         return self.escala_df.loc[
             self.escala_df['NOME COMPLETO'] == nome, day
         ].values[0]
 
-    def is_livre(self, nome, day):
-        return self.get_restricao(nome, day) == 0
+    def ja_escalado(self, nome, day):
+        valor = self.get_restricao(nome, day)
+        return valor in ['NC', 'CM', 'CV']
+
 
     def set_trabalho(self, nome, day, role):
         self.escala_df.loc[
@@ -65,29 +69,23 @@ class Scheduler:
                 restricao = self.get_restricao(nome, day)
 
                 if (
-                    self.is_livre(nome, day)
+                    not self.ja_escalado(nome, day)
                     and pode_trabalhar(restricao, role)
                 ):
                     self.set_trabalho(nome, day, role)
                     assigned += 1
 
             # =====================
-            # FALLBACK
+            # FALLBACK (ignora restrição e usa ordem original)
             # =====================
             if assigned < needed:
 
-                for pessoa in reversed(pessoas_ordenadas):
+                for nome in reversed(self.ordem_original):
 
                     if assigned >= needed:
                         break
 
-                    nome = pessoa.nome
-                    restricao = self.get_restricao(nome, day)
-
-                    if (
-                        self.is_livre(nome, day)
-                        and pode_trabalhar(restricao, role)
-                    ):
+                    if not self.ja_escalado(nome, day):
                         self.set_trabalho(nome, day, role)
                         assigned += 1
 

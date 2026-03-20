@@ -16,9 +16,9 @@ Sistema de geração automática de escala com:
 
 ## 📊 Lógica
 
-- Prioriza quem tem menor carga (score)
-- NC prioriza quem tem menos NC
-- Aleatoriedade controlada em empates
+1. Quem trabalhou menos (quantidade total)
+2. Equilíbrio entre quantidade trabalhada em NC e CM/CV
+3. Aleatoriedade (desempate) pode ser mudado para a nota
 
 ---
 
