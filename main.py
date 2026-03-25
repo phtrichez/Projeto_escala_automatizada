@@ -1,12 +1,13 @@
 from src.scheduler import Scheduler
 
-INPUT_ESCALA = "data/input/Escala_gvc_red.csv"
+INPUT_ESCALA = "data/input/Escala_gvc_red_1.csv"
 INPUT_QTD = "data/input/QTD_ESCALA_DIA.csv"
-OUTPUT = "data/output/escala_final.csv"
+df_INPUT = "data/input/dados_completo_escala.xlsx"
+OUTPUT = "data/output/escala_final.xlsx"
 
 
 def main():
-    scheduler = Scheduler(INPUT_ESCALA, INPUT_QTD)
+    scheduler = Scheduler(df_INPUT)
     resultado = scheduler.run()
     scheduler.save(OUTPUT)
 
