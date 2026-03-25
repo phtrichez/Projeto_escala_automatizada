@@ -3,16 +3,13 @@ from src.models import Pessoa
 from src.config import PESOS, ROLES
 from src.utils import ordenar_pessoas
 from src.restrictions import pode_trabalhar
-from src.trat import Tratamento
-
 
 
 class Scheduler:
 
-    def __init__(self, df, lista_nomes=[]):
-        self.escala_df = Tratamento(df).df_nomes(lista_nomes)
-        self.qtd_df = Tratamento(df).df_qtd_dia()
-
+    def __init__(self, escala_path, qtd_path):
+        self.escala_df = pd.read_csv(escala_path)
+        self.qtd_df = pd.read_csv(qtd_path)
 
         # Ajuste tipo
         for col in self.escala_df.columns[1:]:
@@ -106,4 +103,4 @@ class Scheduler:
         return self.escala_df
 
     def save(self, path):
-        self.escala_df.to_excel(path, index=False)
+        self.escala_df.to_csv(path, index=False)
